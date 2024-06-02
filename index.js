@@ -16,8 +16,6 @@ const fs = require("fs");
   // "https://goodcreator.co/instagram-influencers?sourcePage=Creator%20listing%20page&sourceCTA=Filters";
   await page.goto(url, { waitUntil: "networkidle2" });
 
-  await page.screenshot({ path: "page-screenshot.png", fullPage: true });
-
   // Extract data from the page
   const influencers = [];
 
