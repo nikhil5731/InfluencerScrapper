@@ -9,8 +9,11 @@ const fs = require("fs");
   const page = await browser.newPage();
 
   // Navigate to the desired URL
-  const url =
-    "https://goodcreator.co/instagram-influencers?sourcePage=Creator%20listing%20page&sourceCTA=Filters";
+  const url = fs.readFileSync("url.txt", "utf8").trim();
+  console.log(url);
+
+  //   const url =
+  // "https://goodcreator.co/instagram-influencers?sourcePage=Creator%20listing%20page&sourceCTA=Filters";
   await page.goto(url, { waitUntil: "networkidle2" });
 
   await page.screenshot({ path: "page-screenshot.png", fullPage: true });
@@ -74,7 +77,7 @@ const fs = require("fs");
   }
 
   const excelContent = influencers.map((influencer) =>
-    Object.values(influencer).join("\t")
+    Object.values(influencer).join(",")
   );
 
   // Check if the file already exists
