@@ -14,8 +14,19 @@ const fs = require("fs");
 
   await page.goto(url, { waitUntil: "networkidle2" });
 
+//   await page.screenshot({ path: `./screenshot.png`, fullPage: true });
+
   // Extract data from the page
-  const influencers = [];
+  const influencers = [
+    {
+      title: "Title",
+      category: "Category",
+      country: "Country",
+      followers: "Followers",
+      engRate: "Eng. Rate",
+      type: "Type",
+    },
+  ];
 
   const extractTextContent = async (element) => {
     if (element === null) {
@@ -63,12 +74,12 @@ const fs = require("fs");
 
     // Push the text content into the array
     influencers.push({
-      title: title,
-      category: category,
-      country: country,
-      followers: followers,
-      engRate: engRate,
-      type: type,
+      title: title.replace(/,/g, ""),
+      category: category.replace(/,/g, ""),
+      country: country.replace(/,/g, ""),
+      followers: parseInt(followers.replace(/,/g, "")),
+      engRate: parseFloat(engRate.replace(/,/g, "")),
+      type: type.replace(/,/g, ""),
     });
   }
 
@@ -87,7 +98,7 @@ const fs = require("fs");
   // Write the Excel content to a new file
   fs.writeFileSync(filename, "\uFEFF" + excelContent.join("\n"));
 
-  console.log("Completed!");
+  console.log(`Influencers data saved to ${filename}`);
 
   // Close the browser
   await browser.close();
