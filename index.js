@@ -10,10 +10,8 @@ const fs = require("fs");
 
   // Navigate to the desired URL
   const url = fs.readFileSync("url.txt", "utf8").trim();
-  console.log(url);
+  console.log("Processing URL: ", url);
 
-  //   const url =
-  // "https://goodcreator.co/instagram-influencers?sourcePage=Creator%20listing%20page&sourceCTA=Filters";
   await page.goto(url, { waitUntil: "networkidle2" });
 
   // Extract data from the page
